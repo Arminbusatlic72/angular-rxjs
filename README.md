@@ -1,5 +1,7 @@
 # AngularRxjs
 
+## Learning project for practicing reactive programming in Angular using RxJS library
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.2.
 
 ## Development server
