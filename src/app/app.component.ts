@@ -15,7 +15,7 @@ export class AppComponent {
       { id: 2, name: 'Samir', age: 37 },
       { id: 3, name: 'Irfan', age: 39 },
     ];
-    const messagePromise = new Promise((resolve) => {
+    const messagePromise = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('Promise resolved');
       }),
@@ -27,8 +27,12 @@ export class AppComponent {
     users$.subscribe((data) => {
       console.log(data);
     });
-    message$.subscribe((message) => {
-      console.log(message);
+    message$.subscribe({
+      next: (message) => {
+        console.log(message);
+      },
+      error: (error) => console.log('err', error),
+      complete: () => console.log('It is done'),
     });
     bodyClick$.subscribe((event) => {
       console.log(event);
