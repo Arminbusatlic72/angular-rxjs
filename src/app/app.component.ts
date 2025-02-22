@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { of, from, fromEvent } from 'rxjs';
+import { of, from, fromEvent, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -22,11 +22,15 @@ export class AppComponent {
         1000;
     });
     const users$ = of(users);
+    const customUser$ = new Observable((observer) => {
+      observer.next(1);
+    });
     const message$ = from(messagePromise);
     const bodyClick$ = fromEvent(document, 'click');
     users$.subscribe((data) => {
       console.log(data);
     });
+    customUser$.subscribe((user) => console.log(user));
     message$.subscribe({
       next: (message) => {
         console.log(message);
