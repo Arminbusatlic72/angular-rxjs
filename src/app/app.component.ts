@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { of, from } from 'rxjs';
+import { of, from, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +10,28 @@ import { of, from } from 'rxjs';
 export class AppComponent {
   data: number = 0;
   constructor() {
-    const numbers$ = from([1, 2, 3, 4, 5]);
-    numbers$.subscribe((data) => {
-      this.data = data;
+    const users = [
+      { id: 1, name: 'John', age: 30 },
+      { id: 2, name: 'Samir', age: 37 },
+      { id: 3, name: 'Irfan', age: 39 },
+    ];
+    const messagePromise = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('Promise resolved');
+      }),
+        1000;
+    });
+    const users$ = of(users);
+    const message$ = from(messagePromise);
+    const bodyClick$ = fromEvent(document, 'click');
+    users$.subscribe((data) => {
       console.log(data);
+    });
+    message$.subscribe((message) => {
+      console.log(message);
+    });
+    bodyClick$.subscribe((event) => {
+      console.log(event);
     });
   }
 }
