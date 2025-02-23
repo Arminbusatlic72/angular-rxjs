@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   of,
@@ -9,6 +9,7 @@ import {
   map,
   filter,
   BehaviorSubject,
+  Subscription,
 } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
@@ -19,7 +20,7 @@ import { TestBoardComponent } from './components/test-board/test-board.component
   imports: [RouterOutlet, CommonModule, DashboardComponent, TestBoardComponent],
   templateUrl: './app.component.html',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   data: number = 0;
 
   newUsers = [
@@ -86,8 +87,9 @@ export class AppComponent implements OnInit {
       console.log(event);
     });
   }
+  dataSubscription!: Subscription | null;
   ngOnInit(): void {
-    this.data$.subscribe((data) =>
+    this.dataSubscription = this.data$.subscribe((data) =>
       console.log('ovo je kombinovana lista', data)
     );
     this.data$.subscribe((data) =>
@@ -98,5 +100,8 @@ export class AppComponent implements OnInit {
       this.newUser$.next({ id: '1', name: 'John' });
     }, 2000);
     this.newUser$.subscribe((user) => console.log('user:', user));
+  }
+  ngOnDestroy(): void {
+    this.dataSubscription?.unsubscribe();
   }
 }
