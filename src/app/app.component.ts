@@ -1,20 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { of, from, fromEvent, Observable } from 'rxjs';
+import { of, from, fromEvent, Observable, combineLatest } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule, DashboardComponent],
   templateUrl: './app.component.html',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   data: number = 0;
+
+  newUsers = [
+    { id: 1, name: 'John', age: 30 },
+    { id: 2, name: 'Samir', age: 37 },
+    { id: 3, name: 'Irfan', age: 39 },
+  ];
+  newUsers$ = of(this.newUsers);
+
   constructor() {
     const users = [
       { id: 1, name: 'John', age: 30 },
       { id: 2, name: 'Samir', age: 37 },
       { id: 3, name: 'Irfan', age: 39 },
     ];
+
     const messagePromise = new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve('Promise resolved');
@@ -41,5 +52,10 @@ export class AppComponent {
     bodyClick$.subscribe((event) => {
       console.log(event);
     });
+  }
+  ngOnInit(): void {
+    this.newUsers$.subscribe((data) =>
+      console.log('ovo je in ng on init', data)
+    );
   }
 }
