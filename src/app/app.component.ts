@@ -4,9 +4,10 @@ import { of, from, fromEvent, Observable, combineLatest } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TestBoardComponent } from './components/test-board/test-board.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, DashboardComponent],
+  imports: [RouterOutlet, CommonModule, DashboardComponent, TestBoardComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

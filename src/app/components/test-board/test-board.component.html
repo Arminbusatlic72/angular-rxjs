@@ -1,0 +1,8 @@
+<!-- test-board.component.html -->
+<div *ngIf="foo$ | async as userDetails; else loading">
+  <p>User ID: {{ userDetails.id }}</p>
+  <p>Age: {{ userDetails.age }}</p>
+</div>
+<ng-template #loading>
+  <p>Loading...</p>
+</ng-template>
