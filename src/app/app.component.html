@@ -1,10 +1,60 @@
 <h1>RxJs Course</h1>
-{{ data }}
-<ul>
-  <li *ngFor="let user of newUsers$ | async">
-    {{ user.id }} - {{ user.name }} ({{ user.age }} years old)
+
+<!-- <ul>
+  <p>List of users</p>
+
+  @for (user of newUsers$ | async; track user.id) {
+  <li>
+    {{ user.id }} - {{ user.name }} ({{ user.age }} years old) is user active:
+    {{ user.isActive }}
   </li>
+  }
 </ul>
+<ul>
+  <p>List of users name</p>
+
+  @for (userName of newUsersNames$ | async; track userName) {
+  <li>
+    {{ userName }}
+  </li>
+  }
+</ul>
+<ul>
+  <p>List of active users</p>
+  @for (user of filteredUsers$ | async; track user.id) {
+  <li>{{ user.id }} - {{ user.name }} ({{ user.age }} years old)</li>
+  }
+</ul> -->
+
+<!-- <p>List of users</p>
+  @if (data$ | async; as data) { @for (user of data.newUsers; track user.id) {
+  <li>
+    {{ user.id }} - {{ user.name }} ({{ user.age }} years old) is user active:
+    {{ user.isActive }}
+  </li>
+  } } -->
+
+<ul>
+  <p>List of users name</p>
+  @if (data$ | async; as data) { @for (userName of data.newUsersNames; track
+  userName) {
+  <li>
+    {{ userName }}
+  </li>
+  } }
+</ul>
+<ul>
+  <p>List of active users</p>
+  @if (data$ | async; as data) { @for (user of data.filteredUsers; track
+  user.id) {
+  <li>{{ user.id }} - {{ user.name }} ({{ user.age }} years old)</li>
+  } }
+</ul>
+
+<span>Behavior subject</span>
+@if (newUser$ | async; as newUser) {
+<p>{{ newUser.name }}</p>
+}
 <app-dashboard></app-dashboard>
 <app-test-board></app-test-board>
 <router-outlet />
